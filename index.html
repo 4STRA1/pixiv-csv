@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>pixiv作者CSVビューア</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>pixiv作者CSVビューア</h1>
+
+<div class="card">
+  <div class="row">
+    <input type="file" id="file" accept=".csv,text/csv,text/plain">
+    <button id="load">貼り付けたCSVを読込</button>
+    <button id="clear">状態をリセット</button>
+  </div>
+  <textarea id="paste" placeholder="ユーザースクリプトの「CSVコピー」でコピーした内容をここに貼り付け"></textarea>
+  <div class="mut" id="msg">CSVを読み込むと一覧が表示されます(データはこのブラウザ内だけで処理・保存されます)。</div>
+</div>
+
+<div class="card" id="tools" hidden>
+  <div class="row">
+    <input type="text" id="q" placeholder="作者名で絞り込み" style="flex:1;min-width:140px">
+    <label>閲覧数 ≥ <input type="number" id="minv" min="0" value="0" style="width:96px"></label>
+    <label><input type="checkbox" id="onlyx" checked> Xありのみ</label>
+    <label><input type="checkbox" id="hidef"> フォロー済を隠す</label>
+    <label><input type="checkbox" id="nor18"> R-18あり除外</label>
+  </div>
+  <div class="row">
+    <button class="p" id="nextF">次の未フォローを開く</button>
+    <button class="p" id="nextL">次の未リスト追加を開く</button>
+    <button id="copyH">表示中のX IDをコピー</button>
+    <span class="mut" id="stat"></span>
+  </div>
+  <div class="mut">
+    ※Xの仕様上、フォローは「フォロー確認画面」を開くところまで、リスト追加はプロフィールを開いて「…」→「リストへ追加/削除」を手動で行います。
+    ボタンを押した時点で処理済みとして記録します(実際に完了したかは確認できません)。
+  </div>
+</div>
+
+<div class="wrap"><table id="tbl" hidden>
+  <thead><tr>
+    <th data-k="f">フォロー</th><th data-k="l">リスト</th><th data-k="name">作者</th>
+    <th data-k="works">作品</th><th data-k="views">閲覧</th><th data-k="likes">いいね</th>
+    <th data-k="bookmarks">ブクマ</th><th data-k="r18">R-18</th><th>X操作</th>
+  </tr></thead>
+  <tbody id="tb"></tbody>
+</table></div>
+
+<script src="app.js"></script>
+</body>
+</html>
